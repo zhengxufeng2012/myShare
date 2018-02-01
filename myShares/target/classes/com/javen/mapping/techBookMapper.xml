@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.javen.mapping.techBookMapper">
+	<resultMap id="BaseResultMap" type="com.javen.model.techBook">
+		<id column="tech_id" property="techId" jdbcType="INTEGER" />
+		<result column="tech_option" property="techOption" jdbcType="VARCHAR" />
+		<result column="tech_long" property="techLong" jdbcType="VARCHAR" />
+		<result column="tech_show" property="techShow" jdbcType="INTEGER" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		tech_id, tech_option, tech_long, tech_show
+	</sql>
+	<!--id标识映射文件,称为statement的id  -->
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from tech_book
+		where tech_id = #{techId,jdbcType=INTEGER}
+	</select>
+
+	<insert id="insert" parameterType="com.javen.model.techBook" useGeneratedKeys="true" keyProperty="tech_id">
+		insert into tech_book
+		(tech_option, tech_long,
+		tech_show)
+		values
+		(#{techOption,jdbcType=VARCHAR},
+		#{techLong,jdbcType=VARCHAR},
+		#{techShow,jdbcType=INTEGER})
+	</insert>
+
+	<update id="updateByPrimaryKey" parameterType="com.javen.model.techBook">
+		update tech_book
+		set tech_option = #{techOption,jdbcType=VARCHAR},
+		tech_long =
+		#{techLong,jdbcType=VARCHAR},
+		tech_show = #{techShow,jdbcType=INTEGER}
+		where tech_id = #{techId,jdbcType=INTEGER}
+	</update>
+	<!-- 分页SQL语句 -->
+	 <select id="selectTechByPage" parameterType="Map" resultMap="BaseResultMap">
+		select * from tech_book order by tech_id
+		<if test="start!=null and size!=null">
+			limit #{size} offset #{start}
+		</if>
+		</select>
+	<select id="getTechCount" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM
+		tech_book
+	</select> 
+	 <select id="selectTechByOption" parameterType="Map" resultMap="BaseResultMap">
+		select * from tech_book where tech_long like '%${value}%' and tech_show=1 order by tech_id
+	 </select>
+   
+</mapper>
