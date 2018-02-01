@@ -1,1 +1,13 @@
 # myShare
+项目主要基于Maven+SSM+postgresql框架的后台代码,我这实现了增删改查,也实现了分页还实现了跨域,当然,这里没有写前端,前端是在别的地方.
+项目从开始到最后碰到的一些问题.
+第一是创建maven项目,需要环境是 jdk+tomcat+maven在eclipse中还得配置好
+自己也是参考了项目http://blog.csdn.net/zhshulin/article/details/30779873
+然后是创建maven项目,我主要参考的是:http://blog.csdn.net/zhshulin/article/details/37921705
+后面的话主要是修改pom.xml和spring_mybaties.还有spring_mvc当然最重要的就是web.xml和geneconfig.xml
+
+项目主要早model层的话是使用mybaties自动进行创建的,在mapping层的mapping.java和mapping.xml的话主要就是maybaties自动创建,当然也可以进行自己修改
+项目的service层的话主要就是注意@Service和@Autowired的自动扫描有没有写进去,还有实现等mapping的各种功能
+项目的controller层是springmvc层的核心,能够链接model能够展示view更加能够control好medel的增删改查
+项目的前端部分本项目中没有写而是在urShares中
+
